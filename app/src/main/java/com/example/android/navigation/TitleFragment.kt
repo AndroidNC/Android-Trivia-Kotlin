@@ -18,7 +18,7 @@ class TitleFragment : Fragment() {
 
         val binding = DataBindingUtil.inflate<FragmentTitleBinding>(inflater, R.layout.fragment_title, container, false)
 
-        binding.playButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_gameFragment))
+        binding.playButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_gameFragment2))
 
         (activity as AppCompatActivity).supportActionBar!!.title = "Android Trivia"
 
@@ -33,7 +33,7 @@ class TitleFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item!!, view!!.findNavController())
+        return NavigationUI.onNavDestinationSelected(item, view!!.findNavController())
                 || super.onOptionsItemSelected(item)
     }
 }

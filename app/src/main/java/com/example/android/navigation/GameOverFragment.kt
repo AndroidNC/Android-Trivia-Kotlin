@@ -33,7 +33,7 @@ class GameOverFragment : Fragment() {
         val binding: FragmentGameOverBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_game_over, container, false)
 
-        binding.tryAgainButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_gameOverFragment2_to_gameFragment))
+        binding.tryAgainButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_gameOverFragment2_to_gameFragment2))
         (activity as AppCompatActivity).supportActionBar!!.title = "Game Over"
         return binding.root
     }
