@@ -18,7 +18,9 @@ class TitleFragment : Fragment() {
 
         val binding = DataBindingUtil.inflate<FragmentTitleBinding>(inflater, R.layout.fragment_title, container, false)
 
-        binding.playButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_gameFragment2))
+        binding.playButton.setOnClickListener {
+            view?.findNavController()?.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment2())
+        }
 
         (activity as AppCompatActivity).supportActionBar!!.title = "Android Trivia"
 
