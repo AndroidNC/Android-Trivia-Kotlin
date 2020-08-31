@@ -16,10 +16,12 @@
 
 package com.example.android.navigation
 
+import android.content.Intent
+import android.content.Intent.ACTION_SEND
+import android.content.Intent.EXTRA_TEXT
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -40,11 +42,39 @@ class GameWonFragment : Fragment() {
             view?.findNavController()?.navigate(GameWonFragmentDirections.actionGameWonFragmentToGameFragment2())
         }
 
-        var args = arguments?.let { GameWonFragmentArgs.fromBundle(it) }
-
-        Toast.makeText(context, "numQuestions: ${args?.numQuestions}, numCorrect: ${args?.numCorrect}", Toast.LENGTH_LONG).show()
+        setHasOptionsMenu(true)
 
         (activity as AppCompatActivity).supportActionBar?.title = "Congrats!"
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        if (null != getIntentSharing().resolveActivity(activity!!.packageManager))
+            inflater.inflate(R.menu.winner_menu, menu)
+
+        //menu?.findItem(R.menu.winner_menu).setVisible(false)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item!!.itemId) {
+            R.id.share -> shareSuccesss()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun shareSuccesss() {
+        activity!!.startActivity(getIntentSharing())
+    }
+
+    private fun getIntentSharing(): Intent {
+        var args = arguments?.let { GameWonFragmentArgs.fromBundle(it) }
+
+        val shareIntent = Intent(ACTION_SEND)
+        shareIntent.setType("text/plain")
+                .putExtra(EXTRA_TEXT, getString(R.string.share_success_text, args?.numCorrect, args?.numQuestions))
+
+        return shareIntent
     }
 }
